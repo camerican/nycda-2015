@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript Example</title>
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/my_library.js"></script>
+	<script src="js/ex.js"></script>
+	<script>
+	//sillyExample();
+	function jeffrocks() {
+		document.getElementById("el").innerHTML = "Something different";
+	}
+
+	var x = 4;
+
+	function testScope(someNumber) {
+			someNumber = 10;
+			x = 21;
+			console.log("someNumber is " + someNumber + " inside the function.");
+	}
+
+	//console.log("x becomes " + x + " after the testScope function returns");
+
+	var c = 10;
+
+	function hallo(){
+	  if(true){
+	    var c = 2;
+	  }
+	  console.log(c); 
+	  // returns 2, not the global value 10
+	}
+	hallo();
+	//but global value c remains intact at 10 
+	//b/c of functional scope
+	console.log(c);
+
+
+
+	onload = function() {
+		$("#el").on('click', jeffrocks());
+		$("#el").click(jeffrocks());
+
+		// var newName = prompt( "Enter a new name");
+		// $("#el").text("El is now proud to welcome " + newName);
+
+		console.log("jQuery val(): " + $("#username").val() );
+		console.log("jQuery attr(): " + $("#username").attr("value"));
+		console.log( "plain js.value: " + document.getElementById("username").value);
+
+	//	$('form').html("<h4>Sorry, the form is down for maintenance</h4>");
+		$($("h1")[0]).css('position','relative').animate({left:"+=200px" },"slow",function(){$($("h1")[0]).text("Header one has been moved!");});
+		var mover = function() {
+			$($("h1")[0]).text("Header one has been moved!");
+		}
+		$("form").submit(function(){
+		  if($("input[name='password']").val() == ""){
+		     alert('password cannot be blank');
+		    return false;
+		  } else if($("#username").val() == ""){
+		     alert('username cannot be blank');
+		    return false;
+		  } else {
+		  alert('all clear');
+		  }
+		});
+
+
+	}
+	function charFreq( text ) {
+		var objCharFreq = {}
+		for(x=0;x<text.length;x++) {
+			//if we find our character stored
+			if( objCharFreq[text.charAt(x)] >= 0 ) {
+				//increment the character count
+				objCharFreq[text.charAt(x)] += 1;
+			} else {
+				//add the new char and 
+				objCharFreq[text.charAt(x)] = 1;
+			}
+		}
+		return objCharFreq;
+	}
+	console.log( charFreq("abcabcabcdefabcabcaaaaabbaaaaddeeeffg") );
+	//.click() also works
+	$("#basket").on("click",function(){
+			console.log( "basket click detected");
+			$(this).text( parseInt($(this).text())++ );
+	});
+
+
+	</script>
+</head>
+<body>
+	<h1>Header one</h1>
+	<h1>Another Header</h1>
+	<h1>Yet again</h1>
+	<div onclick="jeffrocks()" id="el">CHANGE ME</div>
+	<div id="me">This is a different div</div>
+
+	<form action="/" method="POST">
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username" value="Zach">
+  <label for="password">Password</label>
+  <input type="password" name="password">
+  <input type="submit" value="Submit">
+
+  <div id="basket">0</div>
+
+</form>
+</body>
+</html>

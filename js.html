@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Javascript Paired Programming Selector</title>
+	<link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/class.css"></link>
+	<script type="text/javascript" src="js/class.js"></script>
+	<script>
+	var arClass = [	"Azeez", "Will", "Jeff", "Chris", 
+								 	"Mike", "Patrick", "Cody", "Berlin", 
+								 	"Raz", "Jake", "David"];
+	var arAbsent = [];	//omit these students
+	console.log(pickPairs(arClass, arAbsent));
+
+ onload = function() {
+ 			var arTest = pickPairs(arClass, arAbsent);
+ 			arTest.totable("output");
+  }
+
+	</script>
+</head>
+<body>
+	<h1>Paired Programming Randomizer</h1>
+	<div id="output"></div>
+</body>
+</html>
