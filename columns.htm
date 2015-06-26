@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Column Example</title>
+	<style>
+		body {margin: 0;}		/* turn margins off*/
+		.column-left { background-color:darkgreen; }	
+		.column-right {background-color:darkred; }
+		.percent .column-left { width: 20% }
+		.percent .column-right { width: 80%; }
+		main { height:500px;}
+		main > div { height:100%; display:block; margin:0;}
+		/* Float Specific Styling */
+		main.float > div,
+		div.float { float:left; }
+		/* Block Specific Styling */
+		main.block > div { display:inline-block; }
+		main.block.font-fix { font-size: 0px; }			/* reduce font to 0 to remove whitespace */
+		main.block.font-fix * { font-size: 16px;}		/* restore to default for all within the container */
+		/* Position Specific Styling */
+		main.position { position:relative;}	/* position: relative container */
+		main.position > div { position: absolute; }
+		main.position > div.column-left { left:0; top:0; }
+		main.position > div.column-right { left:20%; top:0;}
+
+		main.position.fixed .column-left,
+		.fixed.column-left { width: 200px; }
+		main.position.fixed .column-right { top:0; right:0; left:200px; width:auto;}
+	</style>
+</head>
+<body>
+	<h1>Methods to create a column layout</h1>
+	<p>There are three basic ways to create columns in html; using <em>floats</em>, <em> inline-blocks</em>, or <em>nested absolute positioning</em>. CSS3 also introduces a column layout style with the <em>column-count</em> property, but this lies within the domain of inline-text styling outside of this DOM-based discussion.</p>
+	<h2>Float Columns</h2>
+	<p>To use a float layout, we can specify the width of each element such that they add up to 100% of the width of the screen.</p>
+	<main class="float percent">
+		<div class="column-left"></div>
+		<div class="column-right"></div>
+	</main>
+	<hr />
+	<h2>Float Column with body content</h2>
+	<p>The technique of floating a left sidebar around in-line content is troublesome in the sense that the main content.</p>
+	<main>
+		<div class="float fixed column-left"></div>
+		<div class="column-right"></div>
+	</main>
+	<h2>Block Columns with 0-font trick</h2>
+	<main class="block percent font-fix">
+		<div class="column-left"></div>
+		<div class="column-right"></div>
+	</main>
+	<h2>Block Columns with whitespace comments</h2>
+	<main class="block percent"><!--
+		--><div class="column-left"></div><!--
+		--><div class="column-right"></div><!--
+	--></main>
+	<h2>Position Columns</h2>
+	<main class="position percent">
+		<div class="column-left"></div>
+		<div class="column-right"></div>
+	</main>
+	<h2>Position Columns - Fixed Width Sidebar, Adaptable Body</h2>
+	<main class="position fixed">
+		<div class="column-left"></div>
+		<div class="column-right"></div>
+	</main>
+</body>
+</html>

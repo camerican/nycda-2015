@@ -88,7 +88,7 @@ ex9:
 function filterLongWords( words, i ) {
 	var result = []
 	for(var x=0; x<words.length; x++) {
-		if( words[x].length <= i )
+		if( words[x].length >= i )
 			result.push(words[x]);
 	}
 	return result;
@@ -113,7 +113,7 @@ ex10:
 //pass 2
 
 function charFreq( text ) {
-	var objCharFreq = {}
+	var objCharFreq = { }
 	for(x=0;x<text.length;x++) {
 		//if we find our character stored
 		if( objCharFreq[text.charAt(x)] >= 0 ) {
@@ -126,3 +126,109 @@ function charFreq( text ) {
 	}
 	return objCharFreq;
 }
+
+
+//Multiplier
+function Multiplier( ) {
+	this.product = 1;
+	this.multiply = function( val ) {
+		this.product *= val;
+		return this.product;
+	}
+	this.getCurrentValue = function() {
+		return this.product;
+	}
+	this.reset = function() {
+		return this.product = 1;
+	}
+}
+
+//Jukebox
+function Jukebox( ) {
+	this.numSwitches = 0;
+	this.records = [];
+	this.currentRecord = undefined;
+	this.addRecord = function( record ) {
+		this.records.push(record);
+		if(typeof this.currentRecord === "undefined")
+			this.currentRecord = 0;
+	}
+	this.numRecords = function( ) {
+		return this.records.length;
+	}
+	this.switchRecord = function( x ) {
+		if( typeof x === "undefined" || x > this.records.length ) {
+			console.log("Switchin to random record");
+			this.currentRecord = Math.floor(Math.random() * this.records.length);
+			console.log("Now playing " + this.records[this.currentRecord].name());
+		} else {
+			this.currentRecord = parseInt(x);
+		}
+	}
+	this.getCurrentRecord = function() {
+		if(typeof this.currentRecord === "undefined")
+			return "No record is set!";
+		return this.records[this.currentRecord];
+	}
+}
+function Record( title, artist ) {
+	this.title = title;
+	this.artist = artist;
+	this.name = function( ) {
+		return this.artist + " - " + this.title;
+	}
+}
+var myJukebox = new Jukebox( );
+var record1 = new Record( "Slow Hands", "Interpol" );
+var record2 = new Record( "Silent Alarm", "Bloc Party");
+var record3 = new Record( "Expo 86", "Wolf Parade");
+var record4 = new Record( "Sticky Fingers", "Rolling Stones");
+var record5 = new Record( "Born to Run", "Bruce Springsteen");
+var record6 = new Record( "Hotel California", "Eagles");
+myJukebox.addRecord( record1 );
+myJukebox.addRecord( record2 );
+myJukebox.addRecord( record3 );
+myJukebox.addRecord( record4 );
+myJukebox.addRecord( record5 );
+myJukebox.addRecord( record6 );
+
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
+///
+
+
+
+function Password( pass ) {
+	this.password = pass,
+	this.setPassword = function( newPass ) {
+		this.password = newPass;
+	},
+	this.getPassword = function( ) {
+		return "Your password is " + this.password;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
