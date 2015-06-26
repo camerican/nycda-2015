@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta chartype="UTF-8" />
+<title>All about me</title>
+</head>
+<body>
+<h1>Here's a nice about page</h1>
+
+<%=
+	output = "" 
+	for n in 1..5 
+		output += "hey #{n}!<br />" 
+	end 
+	output
+	%>
+<ul>
+<% 
+	names = ["Cam","Will","Berlin","Raz","Chris","Jake","Patrick","David","Mike","Jeff","Azeez"]
+
+	names.each do |name|
+%>
+	<li><b><%= "<strong>#{name}</strong>" %></b></li>
+<%	end%>
+</ul>
+%>
+
+<p>Let's learn all about what we need to know.</p>
+</body>
+</html>
