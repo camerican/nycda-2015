@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Regex Example</title>
+	<link rel="stylesheet" type="text/css" href="css/class.css"></link>
+	<script>
+window.onload = function(){
+var regex = /^\(?\d{3}\)?-?\s*\d{3}\s*-?\d{4}$/;
+/*		
+
+/			Start of regex
+^			From the start of the string we're evaluaing
+\(? 	An opening parens character that appears 0 or 1 times
+\d{3} A numeric value that occurs exactly three times
+\)?		A closing parens character that appears 0 or 1 times
+-?		A dash character that appears 0 or 1 times
+\s* 	Spounge up any whitespace
+\d{3}	A numeric value that occurs exactly three times
+-?		A dash character that appears 0 or 1 times
+\s*		Spounge up any whitespace
+-?		A dash character that appears 0 or 1 times
+\d{4}	A numeric value that occurs exactly four times
+$			End of string
+/			End of regex
+
+*/
+}
+	</script>
+</head>
+<body>
+	<h1>Regex Example</h1>
+	<form>
+	<label for="phone">Phone w/ html5 validation</label><input name="phone" pattern="^\(?\d{3}-?\d{3}\)?[\.|-]?\d{4}" title="Include XXX-XXX-XXXX" /> <input type="submit" value="Submit" />
+	</form>
+	<form>
+		<label for="phone">Phone w/ html5 validation</label><input name="phone" pattern="^\(?\d{3}-?\d{3}\)?[\.|-]?\d{4}" title="Include XXX-XXX-XXXX" /> <input type="submit" value="Submit" />
+	</form>
+</body>
+</html>

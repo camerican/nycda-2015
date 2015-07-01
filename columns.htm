@@ -3,10 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Column Example</title>
+	<link rel="stylesheet" type="text/css" href="css/class.css"></link>
 	<style>
+		p, code { padding: 0px 40px; text-align:left;}
+		.code { border: .5em dashed #999; padding-top:.5em; padding-bottom:.5em; margin: 1em; background-color:rgba(153,153,153,.4);}
+		span { background-color: olive; color:#fff; border-radius:20px; font-size:.5em; padding:.3em; font-family:courier;}
 		body {margin: 0;}		/* turn margins off*/
-		.column-left { background-color:darkgreen; }	
-		.column-right {background-color:darkred; }
+		.column-left { background-color:#33cc99; opacity:.6; }	
+		.column-right {background-color:#cc9933; opacity: .6; }
 		.percent .column-left { width: 20% }
 		.percent .column-right { width: 80%; }
 		main { height:500px;}
@@ -25,42 +29,83 @@
 		main.position > div.column-right { left:20%; top:0;}
 
 		main.position.fixed .column-left,
-		.fixed.column-left { width: 200px; }
-		main.position.fixed .column-right { top:0; right:0; left:200px; width:auto;}
+		.fixed.column-left { width: 300px; }
+		main.position.fixed .column-right { top:0; right:0; left:300px;}
 	</style>
 </head>
 <body>
 	<h1>Methods to create a column layout</h1>
 	<p>There are three basic ways to create columns in html; using <em>floats</em>, <em> inline-blocks</em>, or <em>nested absolute positioning</em>. CSS3 also introduces a column layout style with the <em>column-count</em> property, but this lies within the domain of inline-text styling outside of this DOM-based discussion.</p>
 	<h2>Float Columns</h2>
-	<p>To use a float layout, we can specify the width of each element such that they add up to 100% of the width of the screen.</p>
+	<p>To use a float layout, we can specify the width of each element such that they add up to 100% of the width of the screen. Both columns are <span>proportional</span> to the viewport width. The advantage to using float styling is that it requires minimal CSS; simply float both columns:</p>
+	<p class="code"><code>
+	main.float > div { float:left; }
+	</code></p> 
 	<main class="float percent">
 		<div class="column-left"></div>
 		<div class="column-right"></div>
 	</main>
 	<hr />
 	<h2>Float Column with body content</h2>
-	<p>The technique of floating a left sidebar around in-line content is troublesome in the sense that the main content.</p>
+	<p>Here we have <em>one</em> floated column around non-floated in-line content:</p>
+	<p class="code"><code>
+	div.float { float:left; }<br />
+	&nbsp;&nbsp;.fixed.column-left { width: 300px; }
+	</code></p> 
+	<p>A challenge with this technique will involve making sure that the two content areas have the same height, or else the in-line content will overflow beneath the left-column.  Note that the left column and in-line content of the right column overlap &mdash; any padding or margin left on the in-line right-column content therefore "ghosts" under the floating left column. This technique allows for a <span>fixed</span> width left column, which can be desirable.</p>
 	<main>
 		<div class="float fixed column-left"></div>
 		<div class="column-right"></div>
 	</main>
-	<h2>Block Columns with 0-font trick</h2>
+	<h2>Inline-Block Columns with 0-font trick</h2>
+	<p>By displaying our columns as inline-blocks (as opposed to standard blocks), we're able to stack them horizontally according to our needs.</p>
+	<p class="code"><code>
+	main.block > div { display:inline-block; }
+	</code></p> 
+	<p>Putting our blocks in-line will have the side effect of allowing whitespace around each element, which is undesirable when it comes to laying out columns. We can fix this in one of two ways.  We can reduce the font-size in our container to 0 and then set it back within each of its children:</p>
+	<p class="code"><code>
+	main.block.font-fix { font-size: 0px; }<br />
+	&nbsp;&nbsp;main.block.font-fix * { font-size: 16px;}
+	</code></p> 	
+
 	<main class="block percent font-fix">
 		<div class="column-left"></div>
 		<div class="column-right"></div>
 	</main>
 	<h2>Block Columns with whitespace comments</h2>
+	<p><em>Or</em> we can alternatively protect against whitespace characters appearing by commenting them out within our container and its children. This technique is a bit like caulking your windows to prevent chilly winter air from sneaking in:</p>
+	<p class="code"><code>
+		&lt;main class="block percent"&gt;&lt;!--<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&lt;div class="column-left"&gt;&lt;/div&gt;&lt;!--<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&lt;div class="column-right"&gt;&lt;/div&gt;&lt;!--<br />
+	&nbsp;&nbsp;-->&lt;/main&gt;
+	</code></p> 	
+	<p>This solution has an advantage over the 0-font technique in that it avoids us dealing with side effects such as breaking em-based sizing on children of the container. One downside would be if your DOM content changes frequently such that you can't guarantee whitespace won't sneak in to break your layout.</p>
 	<main class="block percent"><!--
 		--><div class="column-left"></div><!--
 		--><div class="column-right"></div><!--
 	--></main>
 	<h2>Position Columns</h2>
+	<p>Position columns are my preferred method for laying out pages because they provide you more control.  For simple two column layouts, this is unnecessary, but for complex designs it's an important technique to have in your arsenal. To accomplish this technique, we position our inner divs with <span>absolute</span> positioning <em>relative to their container:</em></p>
+	<p class="code"><code>
+	main.position { position:relative;}<br />
+	&nbsp;&nbsp;main.position > div { position: absolute; }<br />
+	&nbsp;&nbsp;main.position > div.column-left { left:0; top:0; }<br />
+	&nbsp;&nbsp;main.position > div.column-right { left:20%; top:0;}
+	</code></p> 
+	<p>By setting the container position to <span>relative</span> rather than the default of <span>static</span> (<span>absolute</span> would work too), children will be positioned relative to that container context rather than that of the <span>window</span>.</p>
 	<main class="position percent">
 		<div class="column-left"></div>
 		<div class="column-right"></div>
 	</main>
+	<p>In this example, we are sizing our columns <span>proportional</span> to the viewport width, but this is no requirement.</p>
 	<h2>Position Columns - Fixed Width Sidebar, Adaptable Body</h2>
+	<p>Here we are using the same technique as the last example but with a <span>fixed</span> size left column and <span>proportional</span> right column.</p>
+	<p class="code"><code>
+		main.position.fixed .column-left { width: 300px; }<br />
+		&nbsp;&nbsp;main.position.fixed .column-right { top:0; right:0; left:300px;}
+	</code></p> 
+	<p>This can be easily accomplished by specifying the left-column width to whatever fixed value we please and then setting the <span>left</span> coordinate of the right-column to that same value.</p>
 	<main class="position fixed">
 		<div class="column-left"></div>
 		<div class="column-right"></div>
