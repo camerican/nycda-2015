@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+ruby '2.1.2'
+
+gem 'sinatra'
+gem 'activerecord'
+gem 'sinatra-activerecord'
+gem 'rack-flash3'
+gem 'rake'
+gem 'sqlite3'
+

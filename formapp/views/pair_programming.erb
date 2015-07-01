@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Javascript Paired Programming Selector</title>
+	<link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/class.css"></link>
+	<script type="text/javascript" src="js/class.js"></script>
+<%
+	arClass = [	:Azeez, :Will, :Jeff, :Chris, 
+							:Mike, :Patrick, :Berlin, 
+							:Raz, :Jake, :David]
+	arAbsent = [ ]
+	arGroups = [ [:Jeff, :Mike, :Azeez], [:Will,:Berlin,:Patrick], [:Raz,:Chris,:Jake,:David],
+							[:Will,:Jake], [:Berlin,:Azeez], [:Raz,:David], [:Jeff,:Chris], [:Mike,:Patrick] ]
+
+	hExclusion = {}
+	arClass.each do | student |
+		hExclusion[student] = []
+		arGroups.each do | group |
+			if group.include? student 
+				group.each do | group_member |
+					hExclusion[student].push(group_member) unless ( group_member == student || hExclusion[student].include?(group_member) )
+				end
+			end
+		end
+	end
+
+	arPairs = []
+
+	def chooser arClass, hExclusion
+		arPairs = []
+		i = 0
+		tot = arClass.length
+		while arClass.length > 0 && i*2 < tot do
+			x = arClass.slice!( rand(arClass.length) )
+			puts arClass.to_s
+			ySelectionSet = arClass - hExclusion[x]
+			y = ySelectionSet.slice( rand(ySelectionSet.length) ) unless arClass.length < 1
+			arClass.delete(y)
+			puts arClass.to_s
+			arPairs[i] = [x.to_s, y.to_s]
+			i += 1
+		end
+		arPairs
+	end
+
+
+
+%>
+	<script>
+	// var arClass = [	"Azeez", "Will", "Jeff", "Chris", 
+	// 							 	"Mike", "Patrick", "Cody", "Berlin", 
+	// 							 	"Raz", "Jake", "David"];
+	// var arAbsent = ["Cody"];	//omit these students
+	// console.log(pickPairs(arClass, arAbsent));
+
+	// var arGroups = [""]
+
+ onload = function() {
+ 			//var arTest = pickPairs(arClass, arAbsent);
+ 			var arTest = <%= chooser(arClass, hExclusion) %>;
+ 			arTest.totable("output");
+ 			console.log(arTest);
+  }
+
+	</script>
+</head>
+<body>
+	<h1>Paired Programming Randomizer</h1>
+	<h3>These are not the teams for today, just a sample.</h3>
+	<p>This version of the paired programming randomizer uses Ruby to pass an array into JavaScript.  The ruby code ensures that everyone will be working with somebody new.  Except it breaks sometimes for the last user.</p>
+	<div id="output"></div>
+<!-- 	<%= rand(10) %><br />
+	<%= chooser(arClass, hExclusion) %> -->
+</body>
+</html>

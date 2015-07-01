@@ -10,8 +10,10 @@
 	var arClass = [	"Azeez", "Will", "Jeff", "Chris", 
 								 	"Mike", "Patrick", "Cody", "Berlin", 
 								 	"Raz", "Jake", "David"];
-	var arAbsent = [];	//omit these students
+	var arAbsent = ["Cody"];	//omit these students
 	console.log(pickPairs(arClass, arAbsent));
+
+	var arGroups = [""]
 
  onload = function() {
  			var arTest = pickPairs(arClass, arAbsent);
@@ -22,6 +24,8 @@
 </head>
 <body>
 	<h1>Paired Programming Randomizer</h1>
+	<h3>These are not the teams for today, just a sample.</h3>
+	<p>This version of the paired programming randomizer uses only native JavaScript.</p>
 	<div id="output"></div>
 </body>
 </html>

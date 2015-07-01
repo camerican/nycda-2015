@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+</head>
+<body>
+<h1>Current Users</h1>
+<ul>
+<% @users.each do |user| %>
+	<li><%= user[:first_name] << " " << user[:last_name] %></li>
+<% end %>
+</ul>
+</body>
+</html>
