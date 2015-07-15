@@ -10,9 +10,11 @@
 	arClass = [	:Azeez, :Will, :Jeff, :Chris, 
 							:Mike, :Patrick, :Berlin, 
 							:Raz, :Jake, :David]
-	arAbsent = [ ]
+	arAbsent = [ :David, :Raz ]
 	arGroups = [ [:Jeff, :Mike, :Azeez], [:Will,:Berlin,:Patrick], [:Raz,:Chris,:Jake,:David],
-							[:Will,:Jake], [:Berlin,:Azeez], [:Raz,:David], [:Jeff,:Chris], [:Mike,:Patrick] ]
+							[:Will,:Jake], [:Berlin,:Azeez], [:Raz,:David], [:Jeff,:Chris], [:Mike,:Patrick], 
+							[:Patrick,:Jeff], [:Will,:David], [:Raz,:Berlin], [:Jake,:Azeez], [:Chris,:Mike],
+							[:Mike,:Berlin], [:Chris,:Will,:David], [:Azeez,:Patrick],[:Jake,:Jeff] ]
 
 	hExclusion = {}
 	arClass.each do | student |
@@ -59,7 +61,7 @@
 
  onload = function() {
  			//var arTest = pickPairs(arClass, arAbsent);
- 			var arTest = <%= chooser(arClass, hExclusion) %>;
+ 			var arTest = <%= chooser(arClass-arAbsent, hExclusion) %>;
  			arTest.totable("output");
  			console.log(arTest);
   }
@@ -71,7 +73,8 @@
 	<h3>These are not the teams for today, just a sample.</h3>
 	<p>This version of the paired programming randomizer uses Ruby to pass an array into JavaScript.  The ruby code ensures that everyone will be working with somebody new.  Except it breaks sometimes for the last user.</p>
 	<div id="output"></div>
-<!-- 	<%= rand(10) %><br />
-	<%= chooser(arClass, hExclusion) %> -->
+	<%= hExclusion %>
+ 	<%= rand(10) %><br />
+	<%= chooser(arClass-arAbsent, hExclusion) %>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animation for First Load</title>
+	<script type="text/javascript" src="cookies.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		if(!Cookies.get("loaded[animator]")) {
+			$('main').animate({
+			    opacity: 0.25,
+			    right: "+=50",
+			    fontSize: "50px"
+			  },5000,function(){
+			  	$('main').animate({
+			    opacity: 1,
+			    right: "+=200",
+			    fontSize: "25px"
+			  	},5000);
+			  });
+		}
+
+		Cookies.set("loaded[animator]", "1");
+	});
+</script>
+
+</head>
+<body>
+<main>
+<h1>Welcome!!!</h1>
+</main>
+</body>
+</html>

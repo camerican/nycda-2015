@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cookie Test</title>
+	<script type="text/javascript" src="cookies.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<style>
+	#hometeam { background-color:lightblue; border:3px dotted red; width:200px; height:30px;}
+	</style>
+	<script>
+	
+	//onload = function() {
+	$(document).ready(function(){
+		Cookies.set("Home Team", "Phillies");
+		$('#hometeam').html(Cookies.get("Home Team"));
+		//$('#hometeam').html("Hello");
+
+//		$('#user').submit
+		$('#user').on('submit',function(event){
+			console.log( "#user submit detected");
+			console.log( $('input[name="name"]').val());
+			event.preventDefault();
+
+			Cookies.set('current_guys_name', $('input[name="name"]', this).val());
+			loggedIn()
+		});
+
+		if( Cookies.get('current_guys_name') ) {
+			loggedIn()
+		}
+	});
+
+	var loggedIn = function(){
+		$('article').html("<h1>Welcome, " + Cookies.get('current_guys_name') + "</h1>");
+	}
+	</script>
+</head>
+<body>
+<h1>Shell for testing cookies</h1>
+My home team is: <div id="hometeam"></div>
+<br />
+<article>
+	<form id="user">
+	<label for="user">Your Name</label>
+	<input type="text" name="name" />
+	<input type="submit" value="Enter" />
+	</form>
+</article>
+</body>
+</html>
